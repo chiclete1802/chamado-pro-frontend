@@ -1,0 +1,16 @@
+<div>
+  <div class="list-header">
+    <h2 class="list-title">Meus Chamados</h2>
+    <button class="btn" (click)="novo()">Novo Chamado</button>
+  </div>
+
+  <div *ngFor="let t of tickets" class="card ticket-card">
+    <div class="ticket-info">
+      <div class="ticket-title">{{ t.titulo }}</div>
+    </div>
+    <div class="ticket-meta">
+      <div [ngClass]="statusClass(t.status)" class="status">{{ t.status }}</div>
+      <button class="btn btn-outline" (click)="open(t.id)">Detalhes</button>
+    </div>
+  </div>
+</div>

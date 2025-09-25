@@ -1,0 +1,23 @@
+<div class="card" *ngIf="chamado">
+  <div class="list-header">
+    <h2>{{ chamado.titulo }}</h2>
+    <div>
+      <button class="btn btn-outline" (click)="editar()">Editar</button>
+      <button class="btn btn-danger" (click)="excluir()">Excluir</button>
+    </div>
+  </div>
+
+  <div class="ticket-subtitle">
+    ID {{ chamado.id }} • Enviado {{ formatarData(chamado.dataCriacao) }}
+  </div>
+
+  <div style="margin-top:12px">
+    <p><strong>Status:</strong> {{ chamado.status }}</p>
+    <p><strong>Responsável:</strong> {{ chamado.tecnicoNome || '---' }}</p>
+    <p><strong>Descrição:</strong> {{ chamado.descricao || 'Sem descrição' }}</p>
+  </div>
+
+  <div class="card" style="margin-top:16px; text-align:center; color:var(--muted)">
+    💬 A troca de mensagens ainda não está disponível.
+  </div>
+</div>

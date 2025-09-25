@@ -1,0 +1,30 @@
+.card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.btn + .btn {
+  margin-left: 8px;
+}
+
+.ticket-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}

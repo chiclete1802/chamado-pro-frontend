@@ -1,0 +1,16 @@
+<div class="card">
+  <h2>Novo Chamado</h2>
+
+  <div class="form-row">
+    <input class="input" placeholder="Título" [(ngModel)]="model.titulo" />
+  </div>
+
+  <div class="form-row">
+    <textarea class="input" rows="6" placeholder="Descrição" [(ngModel)]="model.descricao"></textarea>
+  </div>
+
+  <div class="form-actions">
+    <button class="btn" type="button" (click)="enviar()">Enviar</button>
+    <button class="btn btn-secondary" type="button" (click)="voltar()">Cancelar</button>
+  </div>
+</div>
