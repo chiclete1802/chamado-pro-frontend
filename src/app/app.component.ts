@@ -10,7 +10,9 @@ import { filter } from 'rxjs/operators';
   template: `
   <div class="app">
     <aside class="sidebar">
-      <h3 style="color:white">ChamadoPro</h3>
+      <h3 style="color:white">
+        <a routerLink="/" style="color: inherit; text-decoration: none;">ChamadoPro</a>
+      </h3>
       <nav style="display:flex;flex-direction:column;gap:12px">
         <a routerLink="/" class="nav-link">
           Meus Chamados

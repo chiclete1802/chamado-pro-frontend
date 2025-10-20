@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ApiService } from '../../../core/services/api.service';
 
 export interface Chamado {
   id: number;
@@ -16,27 +16,27 @@ export interface Chamado {
 
 @Injectable({ providedIn: 'root' })
 export class ChamadosService {
-  private api = '/chamados';
+  private readonly apiUrl = '/chamados';
 
-  constructor(private http: HttpClient) { }
+  constructor(private api: ApiService) {}
 
   listar(): Observable<Chamado[]> {
-    return this.http.get<Chamado[]>(this.api);
+    return this.api.get<Chamado[]>(this.apiUrl);
   }
 
   buscarPorId(id: number): Observable<Chamado> {
-    return this.http.get<Chamado>(`${this.api}/${id}`);
+    return this.api.get<Chamado>(`${this.apiUrl}/${id}`);
   }
 
   criar(chamado: { titulo: string; descricao: string }): Observable<Chamado> {
-    return this.http.post<Chamado>(this.api, chamado);
+    return this.api.post<Chamado>(this.apiUrl, chamado);
   }
 
   atualizar(id: number, chamado: Partial<Chamado>): Observable<Chamado> {
-    return this.http.put<Chamado>(`${this.api}/${id}`, chamado);
+    return this.api.put<Chamado>(`${this.apiUrl}/${id}`, chamado);
   }
 
   excluir(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.api}/${id}`);
+    return this.api.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
