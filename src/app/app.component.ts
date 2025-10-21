@@ -14,14 +14,12 @@ import { filter } from 'rxjs/operators';
         <a routerLink="/" style="color: inherit; text-decoration: none;">ChamadoPro</a>
       </h3>
       <nav style="display:flex;flex-direction:column;gap:12px">
-        <a routerLink="/" class="nav-link">
-          Meus Chamados
-        </a>
-        <a routerLink="/novo" class="nav-link">
-          Novo Chamado
-        </a>
+        <a routerLink="/" class="nav-link">Meus Chamados</a>
+        <a routerLink="/novo" class="nav-link">Novo Chamado</a>
+        <a routerLink="/usuarios" class="nav-link">Usuários</a>
       </nav>
     </aside>
+
     <div style="flex:1;display:flex;flex-direction:column;">
       <header class="header">
         <div style="display:flex;align-items:center;gap:12px">
@@ -44,6 +42,8 @@ export class AppComponent {
       .subscribe((event: any) => {
         if (event.urlAfterRedirects.includes('/novo')) {
           this.pageTitle = 'Novo Chamado';
+        } else if (event.urlAfterRedirects.includes('/usuarios')) {
+          this.pageTitle = 'Usuários';
         } else {
           this.pageTitle = 'Meus Chamados';
         }

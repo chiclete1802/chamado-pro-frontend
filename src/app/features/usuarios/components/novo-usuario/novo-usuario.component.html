@@ -1,0 +1,22 @@
+<div class="modal">
+    <h3>Adicionar Novo Usuário</h3>
+    <form (ngSubmit)="criar()">
+      <label>Nome</label>
+      <input [(ngModel)]="nome" name="nome" required />
+  
+      <label>Email</label>
+      <input [(ngModel)]="email" name="email" required type="email" />
+  
+      <label>Tipo</label>
+      <select [(ngModel)]="tipo" name="tipo">
+        <option>Usuário</option>
+        <option>Técnico</option>
+        <option>Administrador</option>
+      </select>
+  
+      <button type="submit" class="btn">Criar</button>
+  
+      <p *ngIf="sucesso" class="msg-sucesso">Usuário criado com sucesso!</p>
+    </form>
+  </div>
+  
