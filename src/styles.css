@@ -46,6 +46,14 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
+strong{
+  font-size: 1.5rem;
+}
+
+h3{
+  width: 100%;
+}
+
 .sidebar {
   width: 280px;
   background: var(--primary);
@@ -55,6 +63,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  justify-content: space-between;
 }
 
 .nav-link {
@@ -67,6 +76,7 @@ body {
   text-decoration: none;
   transition: background 0.3s;
   font-weight: 500;
+  font-size: 1.2rem;
 }
 
 .nav-link:hover {
@@ -74,7 +84,7 @@ body {
 }
 
 .icon {
-  font-size: 20px;
+  font-size: 1rem;
 }
 
 .content {
@@ -88,7 +98,7 @@ body {
 
 .muted {
   color: var(--muted);
-  font-size: 13px;
+  font-size: 1rem;
 }
 
 .btn {
@@ -99,7 +109,7 @@ body {
   color: white;
   cursor: pointer;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 1.2rem;
   transition: background 0.3s, transform 0.2s;
 }
 
@@ -110,8 +120,8 @@ body {
 
 .btn-outline {
   background: transparent;
-  color: var(--primary);
-  border: 1px solid var(--primary);
+  color: var(--bg);
+  border: 1px solid var(--bg);
   transition: background 0.3s, color 0.3s;
 }
 

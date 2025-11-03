@@ -9,8 +9,7 @@
             <div class="usuario-info">
                 <strong>{{ u.nome }}</strong>
                 <p>{{ u.email }}</p>
-                <p><b>Tipo:</b> {{ u.tipo }}</p>
-                <p><b>Data de Criação:</b> {{ u.dataCriacao || '—' }}</p>
+                <p><b>Tipo:</b> {{ u.tipoUsuario }}</p>
             </div>
             <button class="edit-btn" (click)="editar(u.id)">✏️</button>
         </div>

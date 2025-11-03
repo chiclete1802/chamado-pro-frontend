@@ -29,7 +29,7 @@
 }
 
 h2 {
-    font-size: 28px;
+    font-size: 2rem;
     margin-bottom: 20px;
     font-weight: 600;
 }
@@ -42,13 +42,13 @@ h2 {
 }
 
 label {
-    font-size: 14px;
+    font-size: 1rem;
     color: var(--muted);
 }
 
 .input-group {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     background: white;
     border-bottom: 2px solid var(--primary);
     padding: 6px 8px;
@@ -63,7 +63,7 @@ label {
     border: none;
     outline: none;
     width: 100%;
-    font-size: 15px;
+    font-size: 1rem;
     color: var(--text);
     background: transparent;
     padding-left: 10px;
@@ -89,7 +89,7 @@ label {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -108,7 +108,7 @@ label {
     width: 100%;
     border-radius: 30px;
     padding: 12px;
-    font-size: 16px;
+    font-size: 1rem;
     background: var(--primary);
     color: white;
     box-shadow: var(--shadow-md);
@@ -121,7 +121,7 @@ label {
 
 .error {
     color: var(--danger);
-    font-size: 14px;
+    font-size: 1rem;
     margin-top: 8px;
 }
 
@@ -185,7 +185,7 @@ label {
   transform: translateY(-50%);
   cursor: pointer;
   color: var(--primary);
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .toggle-password:hover {
@@ -194,7 +194,7 @@ label {
 
 .error {
   color: #e53935;
-  font-size: 14px;
+  font-size: 1rem;
   margin-top: -4px;
   margin-bottom: 8px;
 }
