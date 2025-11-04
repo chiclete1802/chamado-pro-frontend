@@ -1,6 +1,5 @@
 <div>
     <div class="list-header">
-        <h2 class="list-title">Usuários</h2>
         <button class="btn" (click)="novo()">Novo Usuário</button>
     </div>
 
@@ -11,7 +10,9 @@
                 <p>{{ u.email }}</p>
                 <p><b>Tipo:</b> {{ u.tipoUsuario }}</p>
             </div>
-            <button class="edit-btn" (click)="editar(u.id)">✏️</button>
+            <button class="edit-btn" (click)="editar(u.id)">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </button>
         </div>
     </div>
 </div>

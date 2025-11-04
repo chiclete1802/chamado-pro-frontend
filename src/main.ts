@@ -1,5 +1,5 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter, Router } from '@angular/router';
+import { provideRouter, Router, withHashLocation } from '@angular/router';
 import { provideHttpClient, withInterceptorsFromDi, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -9,7 +9,7 @@ import { AuthInterceptor } from './app/core/services/auth.interceptor';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideRouter(routes),
+    provideRouter(routes, withHashLocation()),
     provideHttpClient(withInterceptorsFromDi()),
     importProvidersFrom(FormsModule, ReactiveFormsModule),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

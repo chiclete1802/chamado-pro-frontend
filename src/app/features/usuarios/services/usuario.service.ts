@@ -6,6 +6,7 @@ export interface Usuario {
   id: number;
   nome: string;
   email: string;
+  senha: string;
   tipo: string;
   dataCriacao?: string;
 }
@@ -24,7 +25,7 @@ export class UsuariosService {
     return this.api.get<Usuario>(`${this.apiUrl}/${id}`);
   }
 
-  criar(usuario: { nome: string; email: string; tipo: string }): Observable<Usuario> {
+  criar(usuario: { nome: string; email: string; senha: string, tipoUsuario: string }): Observable<Usuario> {
     return this.api.post<Usuario>(this.apiUrl, usuario);
   }
 

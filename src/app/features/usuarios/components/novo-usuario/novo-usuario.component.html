@@ -1,17 +1,19 @@
 <div class="modal">
-    <h3>Adicionar Novo Usuário</h3>
     <form (ngSubmit)="criar()">
       <label>Nome</label>
       <input [(ngModel)]="nome" name="nome" required />
   
       <label>Email</label>
       <input [(ngModel)]="email" name="email" required type="email" />
+
+      <label>Senha</label>
+      <input [(ngModel)]="senha" name="senha" required type="senha" />
   
       <label>Tipo</label>
-      <select [(ngModel)]="tipo" name="tipo">
-        <option>Usuário</option>
-        <option>Técnico</option>
-        <option>Administrador</option>
+      <select [(ngModel)]="tipoUsuario" name="tipoUsuario">
+        <option>CLIENTE</option>
+        <option>TECNICO</option>
+        <option>ADMIN</option>
       </select>
   
       <button type="submit" class="btn">Criar</button>

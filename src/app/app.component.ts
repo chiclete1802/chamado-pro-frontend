@@ -11,30 +11,69 @@ import { AuthService } from '../app/features/auth/services/auth.service';
   template: `
   <div *ngIf="!isLoginPage" class="app">
     <aside class="sidebar">
-      <div>
-        <h3>
-          <a routerLink="/" style="text-decoration: none;">
-            <img 
-              src="assets/logo-vertical-branco.svg" 
-              alt="ChamadoPro" 
-              style="width: 100%; vertical-align: middle;"
-            />
-          </a>
-        </h3>
-        <nav style="display:flex; flex-direction:column; gap:12px; margin-top:24px;">
-          <a routerLink="/" class="nav-link">Meus Chamados</a>
-          <a routerLink="/novo" class="nav-link">Novo Chamado</a>
-          <a routerLink="/usuarios" class="nav-link">Usuários</a>
-        </nav>
-      </div>
-      <button class="btn btn-outline" (click)="logout()">Sair</button>
-    </aside>
+    <div>
+      <h2>Menu</h2>
+      <nav class="nav-menu">
+        <a routerLink="/" class="nav-link" routerLinkActive="active">
+          <div class="icon-box">
+            <i class="fa-solid fa-table-cells-large"></i>
+          </div>
+          <span>Dashboard</span>
+        </a>
+
+        <a routerLink="/chamados" class="nav-link" routerLinkActive="active">
+          <div class="icon-box">
+            <i class="fa-solid fa-ticket"></i>
+          </div>
+          <span>Chamados</span>
+        </a>
+
+        <a routerLink="/meus-chamados" class="nav-link" routerLinkActive="active">
+          <div class="icon-box">
+            <i class="fa-solid fa-ticket"></i>
+          </div>
+          <span>Meus Chamados</span>
+        </a>
+
+        <a routerLink="/chamados-pendentes" class="nav-link" routerLinkActive="active">
+          <div class="icon-box">
+          <i class="fa-solid fa-hourglass-half"></i>
+          </div>
+          <span>Chamados Pendentes</span>
+        </a>
+
+        <a routerLink="/novo" class="nav-link" routerLinkActive="active">
+          <div class="icon-box">
+            <i class="fa-solid fa-circle-plus"></i>
+          </div>
+          <span>Novo Chamado</span>
+        </a>
+
+        <a routerLink="/usuarios" class="nav-link" routerLinkActive="active">
+          <div class="icon-box">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <span>Usuários</span>
+        </a>
+      </nav>
+    </div>
+    <button class="btn btn-outline" (click)="logout()">Sair</button>
+  </aside>
 
     <div style="flex:1;display:flex;flex-direction:column;">
       <header class="header">
         <div style="display:flex;align-items:center;gap:12px">
           <strong>{{ pageTitle }}</strong>
         </div>
+        <h3>
+          <a routerLink="/" style="text-decoration: none; display: flex; justify-content: end; height: 100%;">
+            <img 
+              src="assets/logo-vertical.svg" 
+              alt="ChamadoPro" 
+              style="width: 50%; vertical-align: middle; padding: 0.5vh"
+            />
+          </a>
+        </h3>
       </header>
       <main class="content">
         <router-outlet></router-outlet>

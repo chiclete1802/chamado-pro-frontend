@@ -14,13 +14,14 @@ import { NgIf } from '@angular/common';
 export class NovoUsuarioComponent {
   nome = '';
   email = '';
-  tipo = 'Usuário';
+  tipoUsuario = 'CLIENTE';
+  senha = '';
   sucesso = false;
 
   constructor(private usuariosService: UsuariosService, private router: Router) {}
 
   criar() {
-    this.usuariosService.criar({ nome: this.nome, email: this.email, tipo: this.tipo }).subscribe(() => {
+    this.usuariosService.criar({ nome: this.nome, email: this.email, senha: this.senha, tipoUsuario: this.tipoUsuario }).subscribe(() => {
       this.sucesso = true;
       setTimeout(() => this.router.navigate(['/usuarios']), 1000);
     });
