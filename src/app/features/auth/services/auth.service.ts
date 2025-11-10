@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { ApiService } from '../../../core/services/api.service'
+import { ApiService } from '../../../core/services/api.service';
 
 export interface LoginRequest {
   email: string;
@@ -20,9 +20,7 @@ export class AuthService {
 
   login(credentials: LoginRequest): Observable<TokenResponse> {
     return this.api.post<TokenResponse>('/auth/login', credentials).pipe(
-      tap((res) => {
-        localStorage.setItem(this.TOKEN_KEY, res.token);
-      })
+      tap((res) => localStorage.setItem(this.TOKEN_KEY, res.token))
     );
   }
 
