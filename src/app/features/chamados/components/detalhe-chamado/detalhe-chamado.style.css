@@ -24,7 +24,7 @@
 }
 
 .ticket-subtitle {
-  font-size: 14px;
+  font-size: 1rem;
   color: var(--muted);
   margin-bottom: 12px;
 }

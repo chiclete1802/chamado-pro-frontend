@@ -1,0 +1,17 @@
+<div class="modal" *ngIf="usuario">
+    <h3>Editar Usuário</h3>
+  
+    <form (ngSubmit)="salvar()">
+      <label>Nome</label>
+      <input [(ngModel)]="usuario.nome" name="nome" required />
+  
+      <label>Email</label>
+      <input [(ngModel)]="usuario.email" name="email" required type="email" />
+  
+      <div class="actions">
+        <button type="button" class="btn-delete" (click)="deletar()">Deletar</button>
+        <button type="submit" class="btn">Salvar</button>
+      </div>
+    </form>
+  </div>
+  

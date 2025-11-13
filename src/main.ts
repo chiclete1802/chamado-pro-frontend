@@ -1,17 +1,17 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter, Routes } from '@angular/router';
+import { provideRouter, Router, withHashLocation } from '@angular/router';
+import { provideHttpClient, withInterceptorsFromDi, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { importProvidersFrom } from '@angular/core';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppComponent } from './app/app.component';
-import { provideHttpClient } from '@angular/common/http';
-
-const routes: Routes = [
-  { path: '', loadComponent: () => import('./app/features/chamados/components/lista-chamados/lista-chamados.component').then(m => m.ListaChamadosComponent) },
-  { path: 'novo', loadComponent: () => import('./app/features/chamados/components/novo-chamado/novo-chamado.component').then(m => m.NovoChamadoComponent) },
-  { path: 'detalhe/:id', loadComponent: () => import('./app/features/chamados/components/detalhe-chamado/detalhe-chamado.component').then(m => m.DetalheChamadoComponent) },
-];
+import { routes } from './app/app.routes';
+import { AuthInterceptor } from './app/core/services/auth.interceptor';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideRouter(routes),
-    provideHttpClient()
+    provideRouter(routes, withHashLocation()),
+    provideHttpClient(withInterceptorsFromDi()),
+    importProvidersFrom(FormsModule, ReactiveFormsModule),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]
 });

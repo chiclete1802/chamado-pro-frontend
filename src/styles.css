@@ -46,12 +46,38 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
+strong {
+  font-size: 1.5rem;
+}
+
+h3 {
+  height: 100%;
+}
+
+i{
+  color: var(--primary);
+}
+
 .sidebar {
-  width: 280px;
-  background: var(--primary);
+  width: 210px;
+  background-color: #010a53;
   color: white;
-  padding: 24px;
-  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 12px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.sidebar h2 {
+  font-size: 13px;
+  text-transform: uppercase;
+  opacity: 0.8;
+  margin-bottom: 20px;
+}
+
+.nav-menu {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -60,13 +86,41 @@ body {
 .nav-link {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  border-radius: 12px;
-  color: white;
+  gap: 12px;
   text-decoration: none;
-  transition: background 0.3s;
+  color: white;
+  font-size: 14px;
   font-weight: 500;
+  padding: 6px 4px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.icon-box {
+  width: 34px;
+  height: 34px;
+  background-color: #0a27e6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.icon-box i {
+  font-size: 16px;
+  color: white;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.user-section .icon-box {
+  background-color: #0a27e6;
 }
 
 .nav-link:hover {
@@ -74,7 +128,7 @@ body {
 }
 
 .icon {
-  font-size: 20px;
+  font-size: 1rem;
 }
 
 .content {
@@ -88,7 +142,7 @@ body {
 
 .muted {
   color: var(--muted);
-  font-size: 13px;
+  font-size: 1rem;
 }
 
 .btn {
@@ -99,7 +153,7 @@ body {
   color: white;
   cursor: pointer;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 1.2rem;
   transition: background 0.3s, transform 0.2s;
 }
 
@@ -110,8 +164,8 @@ body {
 
 .btn-outline {
   background: transparent;
-  color: var(--primary);
-  border: 1px solid var(--primary);
+  color: var(--bg);
+  border: 1px solid var(--bg);
   transition: background 0.3s, color 0.3s;
 }
 
@@ -140,6 +194,19 @@ body {
   background: #4b5563;
 }
 
-.btn + .btn {
+.btn+.btn {
   margin-left: 8px;
+}
+
+.list-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.list-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
 }
