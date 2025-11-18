@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { ApiService } from '../../../core/services/api.service';
+import { jwtDecode } from 'jwt-decode';
 
 export interface LoginRequest {
   email: string;
@@ -10,6 +11,14 @@ export interface LoginRequest {
 export interface TokenResponse {
   token: string;
   type: string;
+}
+
+export interface DecodedToken {
+  sub: string;
+  role: string;
+  exp: number;
+  iat: number;
+  [key: string]: any;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -34,5 +43,25 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     return !!this.getToken();
+  }
+
+  getUserData(): DecodedToken | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      return jwtDecode<DecodedToken>(token);
+    } catch (e) {
+      console.error('Erro ao decodificar JWT:', e);
+      return null;
+    }
+  }
+
+  getUserRole(): string | null {
+    return this.getUserData()?.role ?? null;
+  }
+
+  getUserEmail(): string | null {
+    return this.getUserData()?.sub ?? null;
   }
 }

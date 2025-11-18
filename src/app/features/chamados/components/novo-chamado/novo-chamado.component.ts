@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ChamadosService } from '../../services/chamados.service';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-novo-chamado',
@@ -14,7 +15,7 @@ import { ChamadosService } from '../../services/chamados.service';
 export class NovoChamadoComponent {
   model: { titulo?: string; descricao?: string } = {};
 
-  constructor(private router: Router, private chamados: ChamadosService) {}
+  constructor(private router: Router, private chamados: ChamadosService, private usuarios: AuthService) {}
 
   enviar() {
     if (!this.model.titulo || !this.model.descricao) {
@@ -24,7 +25,9 @@ export class NovoChamadoComponent {
 
     const payload = {
       titulo: this.model.titulo,
-      descricao: this.model.descricao
+      descricao: this.model.descricao,
+      clienteEmail: this.usuarios.getUserEmail(),
+      adminEmail: this.usuarios.getUserEmail(),
     };
 
     this.chamados.criar(payload).subscribe({
