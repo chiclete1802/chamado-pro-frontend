@@ -30,6 +30,7 @@
 
 .ticket-card:hover {
   background: #f9fafb;
+  cursor: pointer;
 }
 
 .ticket-title {

@@ -7,6 +7,7 @@ export interface Chamado {
   titulo: string;
   descricao: string;
   status: string;
+  categoria: string;
   dataCriacao?: string;
   ultimaAtualizacao?: string;
   clienteNome?: string;
@@ -28,7 +29,7 @@ export class ChamadosService {
     return this.api.get<Chamado>(`${this.apiUrl}/${id}`);
   }
 
-  criar(chamado: { titulo: string; descricao: string; clienteNome?: string; adminNome?: string}): Observable<Chamado> {
+  criar(chamado: { titulo: string; descricao: string; clienteNome?: string; categoria?: string}): Observable<Chamado> {
     return this.api.post<Chamado>(this.apiUrl, chamado);
   }
 

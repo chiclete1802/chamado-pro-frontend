@@ -20,7 +20,7 @@ export class ComentariosService {
     return this.api.get<Comentario[]>(`${this.apiUrl}/chamado/${chamadoId}`);
   }
 
-  criar(chamadoId: number, comentario: { texto: string; dataCriacao: string, autorNome: string, chamadoId: number}): Observable<Comentario> {
+  criar(chamadoId: number, comentario: { texto: string; autorNome: string }): Observable<Comentario> {
     return this.api.post<Comentario>(`${this.apiUrl}/chamado/${chamadoId}`, comentario);
   }
 

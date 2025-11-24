@@ -9,6 +9,18 @@
     <textarea class="input" rows="6" placeholder="Descrição" [(ngModel)]="model.descricao"></textarea>
   </div>
 
+  <div class="form-row">
+    <h3>Categoria</h3>
+    <select class="input" [(ngModel)]="model.categoria" placeholder="Selecione...">
+      <option [ngValue]="null" disabled selected>Selecione...</option>
+      <option value="HARDWARE">HARDWARE</option>
+      <option value="SOFTWARE">SOFTWARE</option>
+      <option value="REDE">REDE</option>
+      <option value="IMPRESSORA">IMPRESSORA</option>
+      <option value="OUTROS">OUTROS</option>
+    </select>
+  </div>
+
   <div class="form-actions">
     <button class="btn" type="button" (click)="enviar()">Enviar</button>
     <button class="btn btn-secondary" type="button" (click)="voltar()">Cancelar</button>

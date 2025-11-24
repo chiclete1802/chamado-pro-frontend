@@ -1,4 +1,5 @@
 <div class="card" *ngIf="chamado">
+
   <div class="list-header">
     <h2>{{ chamado.titulo }}</h2>
     <div>
@@ -13,11 +14,25 @@
 
   <div style="margin-top:12px">
     <p><strong>Status:</strong> {{ chamado.status }}</p>
+    <p><strong>Criado por:</strong> {{ chamado.clienteNome || '---' }}</p>
     <p><strong>Responsável:</strong> {{ chamado.tecnicoNome || '---' }}</p>
+    <p><strong>Categoria:</strong> {{ chamado.categoria || 'Sem categoria' }}</p>
     <p><strong>Descrição:</strong> {{ chamado.descricao || 'Sem descrição' }}</p>
   </div>
 
-  <div class="card" style="margin-top:16px; text-align:center; color:var(--muted)">
-    💬 A troca de mensagens ainda não está disponível.
+  <div class="card" style="margin-top:16px;" *ngIf="role === 'admin' || role === 'tecnico'">
+    <h3>Atribuir Técnico</h3>
+
+    <select [(ngModel)]="tecnicoSelecionado" style="width:100%; margin-bottom:10px">
+      <option [ngValue]="null" disabled selected>Selecione um técnico...</option>
+      <option *ngFor="let t of tecnicos" [value]="t.id">
+        {{ t.nome }}
+      </option>
+    </select>
+
+    <button class="btn" (click)="atribuirTecnico()">Atribuir</button>
   </div>
+
+  <app-comentarios [chamadoId]="chamado.id"></app-comentarios>
+
 </div>

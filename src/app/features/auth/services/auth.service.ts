@@ -61,7 +61,7 @@ export class AuthService {
     return this.getUserData()?.role ?? null;
   }
 
-  getUserEmail(): string | null {
-    return this.getUserData()?.sub ?? null;
+  getUserEmail(): string | undefined {
+    return this.getUserData()?.sub ?? undefined;
   }
 }

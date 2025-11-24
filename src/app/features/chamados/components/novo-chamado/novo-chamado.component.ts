@@ -13,7 +13,7 @@ import { AuthService } from '../../../auth/services/auth.service';
 })
 
 export class NovoChamadoComponent {
-  model: { titulo?: string; descricao?: string } = {};
+  model: { titulo?: string; descricao?: string; categoria?: string } = {};
 
   constructor(private router: Router, private chamados: ChamadosService, private usuarios: AuthService) {}
 
@@ -26,8 +26,8 @@ export class NovoChamadoComponent {
     const payload = {
       titulo: this.model.titulo,
       descricao: this.model.descricao,
-      clienteEmail: this.usuarios.getUserEmail(),
-      adminEmail: this.usuarios.getUserEmail(),
+      clienteNome: this.usuarios.getUserEmail(),
+      categoria: this.model.categoria,
     };
 
     this.chamados.criar(payload).subscribe({

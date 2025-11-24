@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChamadosService, Chamado } from '../../services/chamados.service';
-import { NgFor, NgClass } from '@angular/common';
+import { NgFor, NgClass, NgIf, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-lista-chamados',
   standalone: true,
-  imports: [NgFor, NgClass],
+  imports: [NgFor, NgClass, NgIf, DatePipe],
   templateUrl: './lista-chamados.component.html',
   styleUrls: ['./lista-chamados.style.css']
 })

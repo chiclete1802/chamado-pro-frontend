@@ -1,0 +1,35 @@
+<div class="comentarios-container">
+
+  <h3>Comentários</h3>
+
+  <div *ngFor="let c of comentarios" class="comentario-item">
+    <div class="comentario-header">
+      <strong>{{ c.autorNome }}</strong>
+      <span class="data">{{ c.dataCriacao | date:'dd/MM/yyyy HH:mm' }}</span>
+
+      <button 
+        class="btn-danger btn-sm"
+        *ngIf="podeExcluir(c)"
+        (click)="excluirComentario(c.id)">
+        Excluir
+      </button>
+    </div>
+
+    <p class="texto">
+      {{ c.texto }}
+    </p>
+  </div>
+
+  <div class="novo-comentario">
+    <textarea
+      [(ngModel)]="novoComentario"
+      placeholder="Escreva um comentário..."
+      rows="3">
+    </textarea>
+
+    <button class="btn" (click)="enviarComentario()">
+      Enviar
+    </button>
+  </div>
+
+</div>
