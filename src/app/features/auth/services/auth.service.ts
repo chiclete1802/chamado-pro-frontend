@@ -41,10 +41,6 @@ export class AuthService {
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
-  isAuthenticated(): boolean {
-    return !!this.getToken();
-  }
-
   getUserData(): DecodedToken | null {
     const token = this.getToken();
     if (!token) return null;
@@ -57,11 +53,19 @@ export class AuthService {
     }
   }
 
+  isAuthenticated(): boolean {
+    const data = this.getUserData();
+    if (!data) return false;
+
+    const now = Math.floor(Date.now() / 1000);
+    return data.exp > now;
+  }
+
   getUserRole(): string | null {
     return this.getUserData()?.role ?? null;
   }
 
-  getUserEmail(): string | undefined {
-    return this.getUserData()?.sub ?? undefined;
+  getUserEmail(): string | null {
+    return this.getUserData()?.sub ?? null;
   }
 }

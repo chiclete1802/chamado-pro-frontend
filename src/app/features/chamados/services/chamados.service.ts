@@ -9,6 +9,8 @@ export interface Chamado {
   status: string;
   categoria: string;
   dataCriacao?: string;
+  avaliacao?: number;
+  feedback?: string;
   ultimaAtualizacao?: string;
   clienteNome?: string;
   tecnicoNome?: string;

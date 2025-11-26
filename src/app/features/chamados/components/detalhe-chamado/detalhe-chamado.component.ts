@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ComentariosComponent } from '../../../comentarios/components/comentarios.component';
 import { Location } from '@angular/common';
 import { AuthService } from '../../../auth/services/auth.service';
+import { UsuariosService, Usuario } from '../../../usuarios/services/usuario.service';
 
 @Component({
   selector: 'app-detalhe-chamado',
@@ -15,26 +16,40 @@ import { AuthService } from '../../../auth/services/auth.service';
   styleUrls: ['./detalhe-chamado.style.css']
 })
 export class DetalheChamadoComponent implements OnInit {
+
   chamado?: Chamado;
   chamadoId!: number;
+
   role: string | null = null;
-  tecnicos: { id: number; nome: string }[] = [];
+
+  tecnicos: Usuario[] = [];
   tecnicoSelecionado: number | null = null;
+
+  avaliacao: number | null = null;
+  feedback: string = "";
+
+  usuarioAtual: Usuario | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private chamados: ChamadosService,
+    private usuariosService: UsuariosService,
     private auth: AuthService,
     private location: Location
   ) { }
 
   ngOnInit() {
     this.role = this.auth.getUserRole();
-    this.tecnicos = [
-      { id: 1, nome: 'Carlos' },
-      { id: 2, nome: 'Fernanda' },
-      { id: 3, nome: 'João' }
-    ];
+    const email = this.auth.getUserEmail();
+
+    this.usuariosService.listar().subscribe({
+      next: (users: Usuario[]) => {
+        this.tecnicos = users.filter(u => u.tipoUsuario === 'TECNICO');
+
+        this.usuarioAtual = users.find(u => u.email === email) || null;
+      },
+      error: err => console.error("Erro ao carregar usuários", err)
+    });
 
     this.chamadoId = Number(this.route.snapshot.paramMap.get('id'));
     this.carregarChamado();
@@ -42,29 +57,89 @@ export class DetalheChamadoComponent implements OnInit {
 
   carregarChamado() {
     this.chamados.buscarPorId(this.chamadoId).subscribe({
-      next: data => this.chamado = data,
+      next: (data: Chamado) => {
+        this.chamado = data;
+        if (!this.chamado.clienteNome) {
+          const email = this.auth.getUserEmail();
+          this.chamado.clienteNome = email ?? '---';
+        }
+      },
       error: err => console.error('Erro ao carregar chamado', err)
     });
   }
 
-  atribuirTecnico() {
+
+  atenderChamado() {
+    if (!this.usuarioAtual) {
+      alert("Usuário não encontrado!");
+      return;
+    }
+
+    this.chamados.atribuirTecnico(
+      this.chamadoId,
+      this.usuarioAtual.id,
+      {}
+    ).subscribe({
+      next: (chamado: Chamado) => {
+        this.chamado = chamado;
+        alert("Chamado atendido!");
+      },
+      error: err => console.error("Erro ao atender chamado", err)
+    });
+  }
+
+  atribuirTecnicoPorAdmin() {
     if (!this.tecnicoSelecionado) {
       alert("Selecione um técnico!");
       return;
     }
 
-    const tecnicoNome = this.tecnicos.find(t => t.id === this.tecnicoSelecionado)?.nome;
-
     this.chamados.atribuirTecnico(
       this.chamadoId,
       this.tecnicoSelecionado,
-      { tecnicoNome }
+      {}
     ).subscribe({
-      next: res => {
-        this.chamado = res;
+      next: (chamado: Chamado) => {
+        this.chamado = chamado;
         alert("Técnico atribuído com sucesso!");
       },
       error: err => console.error("Erro ao atribuir técnico", err)
+    });
+  }
+
+  atualizarStatus() {
+    if (!this.chamado) return;
+
+    this.chamados.atualizar(this.chamadoId, {
+      titulo: this.chamado.titulo,
+      descricao: this.chamado.descricao,
+      categoria: this.chamado.categoria,
+      clienteNome: this.chamado.clienteNome,
+      status: this.chamado.status
+    }).subscribe({
+      next: (chamado: Chamado) => {
+        this.chamado = chamado;
+      },
+      error: err => console.error("Erro ao atualizar status", err)
+    });
+  }
+
+  salvarFeedback() {
+    if (!this.chamado) return;
+    this.chamados.atualizar(this.chamadoId, {
+      titulo: this.chamado.titulo,
+      descricao: this.chamado.descricao,
+      categoria: this.chamado.categoria,
+      clienteNome: this.chamado.clienteNome,
+      status: this.chamado.status,
+      avaliacao: this.avaliacao ?? undefined,
+      feedback: this.feedback
+    }).subscribe({
+      next: (chamadoAtualizado: Chamado) => {
+        this.chamado = chamadoAtualizado;
+        alert("Feedback enviado com sucesso!");
+      },
+      error: err => console.error("Erro ao salvar feedback", err)
     });
   }
 
@@ -75,7 +150,7 @@ export class DetalheChamadoComponent implements OnInit {
 
     if (titulo !== null && descricao !== null) {
       this.chamados.atualizar(this.chamadoId, { titulo, descricao }).subscribe({
-        next: updated => {
+        next: (updated: Chamado) => {
           this.chamado = updated;
           alert('Chamado atualizado com sucesso!');
         },
@@ -99,6 +174,10 @@ export class DetalheChamadoComponent implements OnInit {
   formatarData(data?: string): string {
     if (!data) return '---';
     const d = new Date(data);
-    return d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return (
+      d.toLocaleDateString() +
+      ' ' +
+      d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    );
   }
 }

@@ -11,11 +11,14 @@ import { AuthService } from '../../../auth/services/auth.service';
   templateUrl: './novo-chamado.component.html',
   styleUrls: ['./novo-chamado.style.css']
 })
-
 export class NovoChamadoComponent {
   model: { titulo?: string; descricao?: string; categoria?: string } = {};
 
-  constructor(private router: Router, private chamados: ChamadosService, private usuarios: AuthService) {}
+  constructor(
+    private router: Router,
+    private chamados: ChamadosService,
+    private auth: AuthService
+  ) { }
 
   enviar() {
     if (!this.model.titulo || !this.model.descricao) {
@@ -23,15 +26,16 @@ export class NovoChamadoComponent {
       return;
     }
 
+    const emailDoUsuario = this.auth.getUserEmail() || "";
     const payload = {
-      titulo: this.model.titulo,
-      descricao: this.model.descricao,
-      clienteNome: this.usuarios.getUserEmail(),
+      titulo: this.model.titulo!,
+      descricao: this.model.descricao!,
       categoria: this.model.categoria,
+      clienteNome: emailDoUsuario
     };
 
     this.chamados.criar(payload).subscribe({
-      next: (res) => {
+      next: () => {
         alert('Chamado criado com sucesso!');
         this.router.navigate(['/']);
       },
@@ -41,6 +45,7 @@ export class NovoChamadoComponent {
       }
     });
   }
+
 
   voltar() {
     this.router.navigate(['/']);

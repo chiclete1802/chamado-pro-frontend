@@ -19,16 +19,16 @@ export class ComentariosComponent implements OnInit {
   novoComentario: string = '';
 
   role: string | null = null;
-  usuarioNome: string | undefined;
+  usuarioNome: string = "";
 
   constructor(
     private comentariosService: ComentariosService,
     private auth: AuthService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.role = this.auth.getUserRole();
-    this.usuarioNome = this.auth.getUserEmail();
+    this.usuarioNome = this.auth.getUserEmail() ?? "";
 
     this.carregarComentarios();
   }
@@ -49,14 +49,13 @@ export class ComentariosComponent implements OnInit {
 
     const comentario = {
       texto: this.novoComentario.trim(),
-      dataCriacao: new Date().toISOString(),
-      autorNome: this.usuarioNome || "Usuário",
+      autorNome: this.usuarioNome,
       chamadoId: this.chamadoId
     };
 
     this.comentariosService.criar(this.chamadoId, comentario).subscribe({
-      next: novoComentario => {
-        this.comentarios.push(novoComentario);
+      next: novo => {
+        this.comentarios.push(novo);
         this.novoComentario = '';
       },
       error: err => console.error("Erro ao enviar comentário", err)
@@ -64,7 +63,10 @@ export class ComentariosComponent implements OnInit {
   }
 
   podeExcluir(c: Comentario): boolean {
-    return this.role === 'admin' || c.autorNome === this.usuarioNome;
+    return (
+      this.role === 'ADMIN' ||
+      c.autorNome === this.usuarioNome
+    );
   }
 
   excluirComentario(id: number) {
