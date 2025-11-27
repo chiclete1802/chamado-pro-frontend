@@ -7,7 +7,10 @@ export interface Chamado {
   titulo: string;
   descricao: string;
   status: string;
+  categoria: string;
   dataCriacao?: string;
+  avaliacao?: number;
+  feedback?: string;
   ultimaAtualizacao?: string;
   clienteNome?: string;
   tecnicoNome?: string;
@@ -18,7 +21,7 @@ export interface Chamado {
 export class ChamadosService {
   private readonly apiUrl = '/chamados';
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService) { }
 
   listar(): Observable<Chamado[]> {
     return this.api.get<Chamado[]>(this.apiUrl);
@@ -28,7 +31,7 @@ export class ChamadosService {
     return this.api.get<Chamado>(`${this.apiUrl}/${id}`);
   }
 
-  criar(chamado: { titulo: string; descricao: string }): Observable<Chamado> {
+  criar(chamado: { titulo: string; descricao: string; clienteNome?: string; categoria?: string}): Observable<Chamado> {
     return this.api.post<Chamado>(this.apiUrl, chamado);
   }
 
@@ -38,5 +41,17 @@ export class ChamadosService {
 
   excluir(id: number): Observable<void> {
     return this.api.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  listarPorCliente(clienteId: number): Observable<Chamado[]> {
+    return this.api.get<Chamado[]>(`${this.apiUrl}/cliente/${clienteId}`);
+  }
+
+  listarPorTecnico(tecnicoId: number): Observable<Chamado[]> {
+    return this.api.get<Chamado[]>(`${this.apiUrl}/tecnico/${tecnicoId}`);
+  }
+
+  atribuirTecnico(id: number, tecnicoId: number, chamado: Partial<Chamado>): Observable<Chamado> {
+    return this.api.put<Chamado>(`${this.apiUrl}/${id}/atribuir-tecnico/${tecnicoId}`, chamado);
   }
 }

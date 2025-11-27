@@ -15,14 +15,6 @@ import { jwtDecode } from 'jwt-decode';
       <div>
         <h2>Menu</h2>
         <nav class="nav-menu">
-          <!-- ADMIN: Dashboard -->
-          <a *ngIf="isAdmin" routerLink="/" class="nav-link" routerLinkActive="active">
-            <div class="icon-box">
-              <i class="fa-solid fa-table-cells-large"></i>
-            </div>
-            <span>Dashboard</span>
-          </a>
-
           <!-- ADMIN: Chamados -->
           <a *ngIf="isAdmin" routerLink="/chamados" class="nav-link" routerLinkActive="active">
             <div class="icon-box">
@@ -32,7 +24,7 @@ import { jwtDecode } from 'jwt-decode';
           </a>
 
           <!-- CLIENTE: Meus Chamados -->
-          <a *ngIf="isCliente" routerLink="/meus-chamados" class="nav-link" routerLinkActive="active">
+          <a *ngIf="isCliente || isTecnico" routerLink="/meus-chamados" class="nav-link" routerLinkActive="active">
             <div class="icon-box">
               <i class="fa-solid fa-ticket"></i>
             </div>

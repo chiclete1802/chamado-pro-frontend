@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
-import { roleGuard } from './core/guards/role.guard';
 
 export const routes: Routes = [
   {
@@ -11,23 +10,35 @@ export const routes: Routes = [
   },
   {
     path: '',
-    canActivate: [authGuard, roleGuard],
-    data: { roles: ['ADMIN', 'CLIENTE', 'TECNICO'] },
-    loadComponent: () =>
-      import('./features/chamados/components/lista-chamados/lista-chamados.component')
-        .then(m => m.ListaChamadosComponent),
+    canActivate: [authGuard],
   },
   {
     path: 'chamados',
-    canActivate: [authGuard, roleGuard],
+    canActivate: [authGuard],
     data: { roles: ['ADMIN'] },
     loadComponent: () =>
       import('./features/chamados/components/lista-chamados/lista-chamados.component')
         .then(m => m.ListaChamadosComponent),
   },
   {
+    path: 'chamados-pendentes',
+    canActivate: [authGuard],
+    data: { roles: ['TECNICO'] },
+    loadComponent: () =>
+      import('./features/chamados/components/lista-chamados/chamados-pendentes/chamados-pendentes.component')
+        .then(m => m.ChamadosPendentesComponent),
+  },
+  {
+    path: 'meus-chamados',
+    canActivate: [authGuard],
+    data: { roles: ['TECNICO', 'CLIENTE'] },
+    loadComponent: () =>
+      import('./features/chamados/components/lista-chamados/meus-chamados/meus-chamados.component')
+        .then(m => m.MeusChamadosComponent),
+  },
+  {
     path: 'novo',
-    canActivate: [authGuard, roleGuard],
+    canActivate: [authGuard],
     data: { roles: ['ADMIN', 'CLIENTE'] },
     loadComponent: () =>
       import('./features/chamados/components/novo-chamado/novo-chamado.component')
@@ -35,7 +46,7 @@ export const routes: Routes = [
   },
   {
     path: 'detalhe/:id',
-    canActivate: [authGuard, roleGuard],
+    canActivate: [authGuard],
     data: { roles: ['ADMIN', 'CLIENTE', 'TECNICO'] },
     loadComponent: () =>
       import('./features/chamados/components/detalhe-chamado/detalhe-chamado.component')
@@ -43,7 +54,7 @@ export const routes: Routes = [
   },
   {
     path: 'usuarios',
-    canActivate: [authGuard, roleGuard],
+    canActivate: [authGuard],
     data: { roles: ['ADMIN'] },
     loadComponent: () =>
       import('./features/usuarios/components/lista-usuarios/lista-usuarios.component')
@@ -51,7 +62,7 @@ export const routes: Routes = [
   },
   {
     path: 'usuarios/novo',
-    canActivate: [authGuard, roleGuard],
+    canActivate: [authGuard],
     data: { roles: ['ADMIN'] },
     loadComponent: () =>
       import('./features/usuarios/components/novo-usuario/novo-usuario.component')
@@ -59,7 +70,7 @@ export const routes: Routes = [
   },
   {
     path: 'usuarios/editar/:id',
-    canActivate: [authGuard, roleGuard],
+    canActivate: [authGuard],
     data: { roles: ['ADMIN'] },
     loadComponent: () =>
       import('./features/usuarios/components/editar-usuario/editar-usuario.component')
