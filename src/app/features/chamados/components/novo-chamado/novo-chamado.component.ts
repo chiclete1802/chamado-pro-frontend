@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ChamadosService } from '../../services/chamados.service';
 import { AuthService } from '../../../auth/services/auth.service';
+import { UsuariosService, Usuario } from '../../../usuarios/services/usuario.service';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-novo-chamado',
@@ -17,8 +19,9 @@ export class NovoChamadoComponent {
   constructor(
     private router: Router,
     private chamados: ChamadosService,
-    private auth: AuthService
-  ) { }
+    private auth: AuthService,
+    private usuariosService: UsuariosService
+  ) {}
 
   enviar() {
     if (!this.model.titulo || !this.model.descricao) {
@@ -26,15 +29,28 @@ export class NovoChamadoComponent {
       return;
     }
 
-    const emailDoUsuario = this.auth.getUserEmail() || "";
-    const payload = {
-      titulo: this.model.titulo!,
-      descricao: this.model.descricao!,
-      categoria: this.model.categoria,
-      clienteNome: emailDoUsuario
-    };
+    const email = this.auth.getUserEmail();
+    if (!email) {
+      alert('Usuário não autenticado');
+      return;
+    }
 
-    this.chamados.criar(payload).subscribe({
+    this.usuariosService.listar().pipe(
+      switchMap((usuarios) => {
+        const usuario = usuarios.find(u => u.email === email);
+        if (!usuario) throw new Error('Usuário não encontrado');
+
+        const payload = {
+          titulo: this.model.titulo!,
+          descricao: this.model.descricao!,
+          categoria: this.model.categoria,
+          clienteId: usuario.id,
+          clienteNome: usuario.nome
+        };
+
+        return this.chamados.criar(payload);
+      })
+    ).subscribe({
       next: () => {
         alert('Chamado criado com sucesso!');
         this.router.navigate(['/']);
@@ -45,7 +61,6 @@ export class NovoChamadoComponent {
       }
     });
   }
-
 
   voltar() {
     this.router.navigate(['/']);

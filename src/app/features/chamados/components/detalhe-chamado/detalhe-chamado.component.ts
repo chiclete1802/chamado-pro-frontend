@@ -59,6 +59,10 @@ export class DetalheChamadoComponent implements OnInit {
     this.chamados.buscarPorId(this.chamadoId).subscribe({
       next: (data: Chamado) => {
         this.chamado = data;
+
+        this.avaliacao = data.avaliacao ?? null;
+        this.feedback = data.feedback ?? "";
+
         if (!this.chamado.clienteNome) {
           const email = this.auth.getUserEmail();
           this.chamado.clienteNome = email ?? '---';
