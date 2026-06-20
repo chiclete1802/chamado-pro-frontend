@@ -46,3 +46,10 @@ textarea {
   display: flex;
   justify-content: flex-end;
 }
+
+.hint {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}

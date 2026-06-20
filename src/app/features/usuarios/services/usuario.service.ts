@@ -8,6 +8,9 @@ export interface Usuario {
   email: string;
   senha?: string;
   tipoUsuario: string;
+  nivelTecnico?: string | null;
+  telefone?: string | null;
+  whatsappApiKey?: string | null;
   dataCriacao?: string;
 }
 
@@ -21,11 +24,19 @@ export class UsuariosService {
     return this.api.get<Usuario[]>(this.apiUrl);
   }
 
+  /**
+   * Lista apenas os usuários técnicos (com seus níveis N1/N2/N3),
+   * usado para popular seletores de escalonamento.
+   */
+  listarTecnicos(): Observable<Usuario[]> {
+    return this.api.get<Usuario[]>(`${this.apiUrl}/tecnicos`);
+  }
+
   buscarPorId(id: number): Observable<Usuario> {
     return this.api.get<Usuario>(`${this.apiUrl}/${id}`);
   }
 
-  criar(usuario: { nome: string; email: string; senha: string, tipoUsuario: string }): Observable<Usuario> {
+  criar(usuario: { nome: string; email: string; senha: string, tipoUsuario: string, nivelTecnico?: string | null, telefone?: string | null, whatsappApiKey?: string | null }): Observable<Usuario> {
     return this.api.post<Usuario>(this.apiUrl, usuario);
   }
 

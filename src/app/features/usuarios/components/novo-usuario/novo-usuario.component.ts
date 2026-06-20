@@ -16,12 +16,23 @@ export class NovoUsuarioComponent {
   email = '';
   tipoUsuario = 'CLIENTE';
   senha = '';
+  nivelTecnico: string | null = null;
+  telefone = '';
+  whatsappApiKey = '';
   sucesso = false;
 
   constructor(private usuariosService: UsuariosService, private router: Router) {}
 
   criar() {
-    this.usuariosService.criar({ nome: this.nome, email: this.email, senha: this.senha, tipoUsuario: this.tipoUsuario }).subscribe(() => {
+    this.usuariosService.criar({
+      nome: this.nome,
+      email: this.email,
+      senha: this.senha,
+      tipoUsuario: this.tipoUsuario,
+      nivelTecnico: this.tipoUsuario === 'TECNICO' ? this.nivelTecnico : null,
+      telefone: this.telefone || null,
+      whatsappApiKey: this.whatsappApiKey || null
+    }).subscribe(() => {
       this.sucesso = true;
       setTimeout(() => this.router.navigate(['/usuarios']), 1000);
     });

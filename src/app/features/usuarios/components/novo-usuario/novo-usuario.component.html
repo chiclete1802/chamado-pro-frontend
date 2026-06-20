@@ -15,10 +15,25 @@
         <option>TECNICO</option>
         <option>ADMIN</option>
       </select>
-  
+
+      <ng-container *ngIf="tipoUsuario === 'TECNICO'">
+        <label>Nível de Atendimento</label>
+        <select [(ngModel)]="nivelTecnico" name="nivelTecnico">
+          <option [ngValue]="null" disabled>Selecione...</option>
+          <option value="N1">N1</option>
+          <option value="N2">N2</option>
+          <option value="N3">N3</option>
+        </select>
+      </ng-container>
+
+      <label>Telefone (WhatsApp, formato internacional)</label>
+      <input [(ngModel)]="telefone" name="telefone" placeholder="Ex: 5511999999999" />
+
+      <label>WhatsApp API Key (CallMeBot)</label>
+      <input [(ngModel)]="whatsappApiKey" name="whatsappApiKey" placeholder="Opcional - para notificações por WhatsApp" />
+
       <button type="submit" class="btn">Criar</button>
   
       <p *ngIf="sucesso" class="msg-sucesso">Usuário criado com sucesso!</p>
     </form>
   </div>
-  

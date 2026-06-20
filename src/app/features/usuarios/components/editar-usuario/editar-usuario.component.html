@@ -7,11 +7,37 @@
   
       <label>Email</label>
       <input [(ngModel)]="usuario.email" name="email" required type="email" />
-  
+
+      <label>Tipo</label>
+      <select [(ngModel)]="usuario.tipoUsuario" name="tipoUsuario">
+        <option value="CLIENTE">CLIENTE</option>
+        <option value="TECNICO">TECNICO</option>
+        <option value="ADMIN">ADMIN</option>
+      </select>
+
+      <ng-container *ngIf="usuario.tipoUsuario === 'TECNICO'">
+        <label>Nível de Atendimento</label>
+        <select [(ngModel)]="usuario.nivelTecnico" name="nivelTecnico">
+          <option [ngValue]="null" disabled>Selecione...</option>
+          <option value="N1">N1</option>
+          <option value="N2">N2</option>
+          <option value="N3">N3</option>
+        </select>
+      </ng-container>
+
+      <label>Telefone (WhatsApp, formato internacional)</label>
+      <input [(ngModel)]="usuario.telefone" name="telefone" placeholder="Ex: 5511999999999" />
+
+      <label>WhatsApp API Key (CallMeBot)</label>
+      <input [(ngModel)]="usuario.whatsappApiKey" name="whatsappApiKey"
+             placeholder="Deixe em branco para manter a atual" />
+
+      <label>Nova senha (opcional)</label>
+      <input [(ngModel)]="usuario.senha" name="senha" type="password" placeholder="Deixe em branco para manter a atual" />
+
       <div class="actions">
         <button type="button" class="btn-delete" (click)="deletar()">Deletar</button>
         <button type="submit" class="btn">Salvar</button>
       </div>
     </form>
   </div>
-  

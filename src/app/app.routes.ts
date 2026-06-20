@@ -11,6 +11,7 @@ export const routes: Routes = [
   {
     path: '',
     canActivate: [authGuard],
+    children: [],
   },
   {
     path: 'chamados',
@@ -75,6 +76,22 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/usuarios/components/editar-usuario/editar-usuario.component')
         .then(m => m.EditarUsuarioComponent),
+  },
+  {
+    path: 'dashboard',
+    canActivate: [authGuard],
+    data: { roles: ['ADMIN'] },
+    loadComponent: () =>
+      import('./features/dashboard/components/dashboard-admin/dashboard-admin.component')
+        .then(m => m.DashboardAdminComponent),
+  },
+  {
+    path: 'sla-config',
+    canActivate: [authGuard],
+    data: { roles: ['ADMIN'] },
+    loadComponent: () =>
+      import('./features/sla-config/components/sla-config-admin/sla-config-admin.component')
+        .then(m => m.SlaConfigAdminComponent),
   },
   {
     path: '**',

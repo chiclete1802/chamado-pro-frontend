@@ -3,18 +3,27 @@ import { RouterOutlet, RouterLink, Router, NavigationEnd } from '@angular/router
 import { NgClass, NgIf } from '@angular/common';
 import { filter } from 'rxjs/operators';
 import { AuthService } from '../app/features/auth/services/auth.service';
+import { NotificacaoBellComponent } from './features/notificacoes/components/notificacao-bell/notificacao-bell.component';
 import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, NgClass, NgIf],
+  imports: [RouterOutlet, RouterLink, NgClass, NgIf, NotificacaoBellComponent],
   template: `
   <div *ngIf="!isLoginPage" class="app">
     <aside class="sidebar">
       <div>
         <h2>Menu</h2>
         <nav class="nav-menu">
+          <!-- ADMIN: Dashboard -->
+          <a *ngIf="isAdmin" routerLink="/dashboard" class="nav-link" routerLinkActive="active">
+            <div class="icon-box">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <span>Dashboard</span>
+          </a>
+
           <!-- ADMIN: Chamados -->
           <a *ngIf="isAdmin" routerLink="/chamados" class="nav-link" routerLinkActive="active">
             <div class="icon-box">
@@ -54,6 +63,14 @@ import { jwtDecode } from 'jwt-decode';
             </div>
             <span>Usuários</span>
           </a>
+
+          <!-- ADMIN: Configuração de SLA -->
+          <a *ngIf="isAdmin" routerLink="/sla-config" class="nav-link" routerLinkActive="active">
+            <div class="icon-box">
+              <i class="fa-solid fa-stopwatch"></i>
+            </div>
+            <span>SLA</span>
+          </a>
         </nav>
       </div>
 
@@ -65,15 +82,18 @@ import { jwtDecode } from 'jwt-decode';
         <div style="display:flex;align-items:center;gap:12px">
           <strong>{{ pageTitle }}</strong>
         </div>
-        <h3>
-          <a routerLink="/" style="text-decoration: none; display: flex; justify-content: end; height: 100%;">
-            <img 
-              src="assets/logo-vertical.svg" 
-              alt="ChamadoPro" 
-              style="width: 50%; vertical-align: middle; padding: 0.5vh"
-            />
-          </a>
-        </h3>
+        <div style="display:flex;align-items:center;gap:16px">
+          <app-notificacao-bell></app-notificacao-bell>
+          <h3 style="margin:0">
+            <a routerLink="/" style="text-decoration: none; display: flex; justify-content: end; height: 100%;">
+              <img 
+                src="assets/logo-vertical.svg" 
+                alt="ChamadoPro" 
+                style="width: 50%; vertical-align: middle; padding: 0.5vh"
+              />
+            </a>
+          </h3>
+        </div>
       </header>
       <main class="content">
         <router-outlet></router-outlet>
@@ -120,7 +140,11 @@ export class AppComponent {
   }
 
   private updateTitle(url: string) {
-    if (url.includes('/novo')) {
+    if (url.includes('/dashboard')) {
+      this.pageTitle = 'Dashboard';
+    } else if (url.includes('/sla-config')) {
+      this.pageTitle = 'Configuração de SLA';
+    } else if (url.includes('/novo')) {
       this.pageTitle = 'Novo Chamado';
     } else if (url.includes('/usuarios')) {
       this.pageTitle = 'Usuários';

@@ -13,6 +13,15 @@
         <p><b>Criado em:</b> {{ t.dataCriacao | date:'dd/MM/yyyy HH:mm' }}</p>
       </div>
 
+      <div class="ticket-badges">
+        <span *ngIf="t.prioridade" class="badge" [ngClass]="'prioridade-' + t.prioridade">
+          {{ prioridadeLabels[t.prioridade] || t.prioridade }}
+        </span>
+        <span *ngIf="t.statusSla" class="badge" [ngClass]="'sla-' + t.statusSla">
+          {{ statusSlaLabels[t.statusSla] || t.statusSla }}
+        </span>
+      </div>
+
       <div class="ticket-meta">
         <span [ngClass]="statusClass(t.status)" class="status">{{ t.status }}</span>
       </div>

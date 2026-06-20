@@ -11,7 +11,7 @@
 
   <div class="form-row">
     <h3>Categoria</h3>
-    <select class="input" [(ngModel)]="model.categoria" placeholder="Selecione...">
+    <select class="input" [(ngModel)]="model.categoria" (ngModelChange)="onCategoriaChange()" placeholder="Selecione...">
       <option [ngValue]="null" disabled selected>Selecione...</option>
       <option value="HARDWARE">HARDWARE</option>
       <option value="SOFTWARE">SOFTWARE</option>
@@ -19,6 +19,17 @@
       <option value="IMPRESSORA">IMPRESSORA</option>
       <option value="OUTROS">OUTROS</option>
     </select>
+  </div>
+
+  <div class="form-row">
+    <h3>Prioridade</h3>
+    <select class="input" [(ngModel)]="model.prioridade" (ngModelChange)="onPrioridadeChange()">
+      <option [ngValue]="undefined" disabled>Selecione uma categoria...</option>
+      <option *ngFor="let p of prioridadeOpcoes" [value]="p">{{ prioridadeLabels[p] }}</option>
+    </select>
+    <small class="hint">
+      Sugerida automaticamente com base na categoria, mas pode ser ajustada.
+    </small>
   </div>
 
   <div class="form-actions">
